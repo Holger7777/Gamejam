@@ -7,13 +7,16 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public static event Action<Enemy> OnEnemyKilled;
-    [SerializeField] private float health, maxHealth = 3f;
-
-    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float damage = 1f;                     //enemy damage
+    [SerializeField] private float health, maxHealth = 3f;          //enemy health
+    [SerializeField] private float pointYield = 100f;               //how many points the player gets for killing the enemy
+    [SerializeField] private float moveSpeed = 2f;                  //enemy movement speed
+   
+    
     private Rigidbody2D rb;
     private Transform target;
     private Vector2 moveDirection;
-
+    
 
     private void Awake()
     {
@@ -24,6 +27,7 @@ public class Enemy : MonoBehaviour
     {
         health = maxHealth;
         target = GameObject.Find("Player").transform;
+        
     }
 
     private void Update()
@@ -56,7 +60,13 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
             OnEnemyKilled?.Invoke(this);
         }
-        
     }
-  
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
+        }
+    }
 }
