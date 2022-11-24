@@ -50,8 +50,9 @@ MonoBehaviour:
   damage: 1
   health: 0
   maxHealth: 3
-  pointYield: 100
+  expYield: 100
   moveSpeed: 0.8
+  _expPrefab: {fileID: 9068476433100689533, guid: 9ea8fe9f89e80e941a1fa5fea053251b, type: 3}
 --- !u!50 &7039844575133428782
 Rigidbody2D:
   serializedVersion: 4

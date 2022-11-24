@@ -49,11 +49,11 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator spawnEnemy(float interval, GameObject enemy)
     {
         yield return new WaitForSeconds(interval);
-        float arenaX, arena›;
+        float arenaX, arenaY;
         Vector2 spawnPos;
         arenaX = Random.Range(_spawnArea.bounds.min.x, _spawnArea.bounds.max.x);
-        arena› = Random.Range(_spawnArea.bounds.min.y, _spawnArea.bounds.max.y);
-        spawnPos = new Vector2(arenaX, arena›);
+        arenaY = Random.Range(_spawnArea.bounds.min.y, _spawnArea.bounds.max.y);
+        spawnPos = new Vector2(arenaX, arenaY);
         GameObject newEnemy = Instantiate(enemy, spawnPos, Quaternion.identity);
         StartCoroutine(spawnEnemy(interval, enemy));
     }
