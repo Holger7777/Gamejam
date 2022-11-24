@@ -4,10 +4,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-/* Code til enemy AI https:// www.youtube.com/watch?v=ZExSz7x69j8&t=1s */
-
-
-
 public class Enemy : MonoBehaviour
 {
     public static event Action<Enemy> OnEnemyKilled;
