@@ -7,9 +7,9 @@ public class Experience : MonoBehaviour
     private float _expOrbValue = 1;
     // Start is called before the first frame update
 
-    public void Drop(float _pointYield)
+    public void Drop(float expYield)
     {
-        _expOrbValue = _pointYield;
+        _expOrbValue = expYield;
     }
     
     void OnTriggerEnter2D(Collider2D collision)

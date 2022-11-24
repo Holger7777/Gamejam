@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     public static event Action<Enemy> OnEnemyKilled;
     [SerializeField] private float damage = 1f;                     //enemy damage
     [SerializeField] private float health, maxHealth = 3f;          //enemy health
-    [SerializeField] private float pointYield = 100f;               //how many points the player gets for killing the enemy
+    [SerializeField] private float expYield = 100f;               //how many points the player gets for killing the enemy
     [SerializeField] private float moveSpeed = 1f;                  //enemy movement speed
    
     
@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             GameObject exp = Instantiate(_expPrefab);
-            exp.
+            exp.GetComponent<Experience>().Drop(expYield);
             Destroy(gameObject);
             OnEnemyKilled?.Invoke(this);
         }
