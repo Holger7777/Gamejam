@@ -54,6 +54,15 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetBool("isWalking", false);
         }
+
+        if(_movementInput.x < 0)
+        {
+            GetComponentInChildren<SpriteRenderer>().flipX = true;
+        }
+        else if (_movementInput.x > 0)
+        {
+            GetComponentInChildren<SpriteRenderer>().flipX = false;
+        }
     }
 
     private void OnMove(InputValue inputValue)
