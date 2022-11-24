@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,10 +22,17 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        _animator.SetBool("awake", true);
     }
 
     private void FixedUpdate()
     {
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerSleep") ||
+            _animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerWake"))
+        {
+            return;
+        }
+        
         if(_hp <= 0)
         {
             Dead();
@@ -37,7 +45,6 @@ public class PlayerController : MonoBehaviour
 
     private void Alive()
     {
-        _animator.SetBool("awake", true);
         _ridgidbody.velocity = _movementInput * _speed;
         if (_movementInput.x != 0 || _movementInput.y != 0)
         {

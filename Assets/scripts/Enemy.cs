@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float damage = 1f;                     //enemy damage
     [SerializeField] private float health, maxHealth = 3f;          //enemy health
     [SerializeField] private float pointYield = 100f;               //how many points the player gets for killing the enemy
-    [SerializeField] private float moveSpeed = 2f;                  //enemy movement speed
+    [SerializeField] private float moveSpeed = 1f;                  //enemy movement speed
    
     
     private Rigidbody2D rb;
