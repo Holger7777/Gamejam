@@ -4,20 +4,19 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-/* Code til enemy AI https:// www.youtube.com/watch?v=ZExSz7x69j8&t=1s */
-
-
-
 public class Enemy : MonoBehaviour
 {
     public static event Action<Enemy> OnEnemyKilled;
-    [SerializeField] private float health, maxHealth = 3f;
-
-    [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float damage = 1f;                     //enemy damage
+    [SerializeField] private float health, maxHealth = 3f;          //enemy health
+    [SerializeField] private float pointYield = 100f;               //how many points the player gets for killing the enemy
+    [SerializeField] private float moveSpeed = 1f;                  //enemy movement speed
+   
+    
     private Rigidbody2D rb;
     private Transform target;
     private Vector2 moveDirection;
-
+    
 
     private void Awake()
     {
@@ -28,6 +27,7 @@ public class Enemy : MonoBehaviour
     {
         health = maxHealth;
         target = GameObject.Find("Player").transform;
+        
     }
 
     private void Update()
@@ -60,7 +60,13 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
             OnEnemyKilled?.Invoke(this);
         }
-        
     }
-  
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<PlayerController>().TakeDamage(damage);
+        }
+    }
 }
