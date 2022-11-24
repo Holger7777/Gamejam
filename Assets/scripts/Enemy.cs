@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rb;
     private Transform target;
     private Vector2 moveDirection;
+
+    [SerializeField] private GameObject _expPrefab;
     
 
     private void Awake()
@@ -57,6 +59,8 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
+            GameObject exp = Instantiate(_expPrefab);
+            exp.
             Destroy(gameObject);
             OnEnemyKilled?.Invoke(this);
         }
