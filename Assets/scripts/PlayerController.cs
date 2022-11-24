@@ -10,14 +10,18 @@ public class PlayerController : MonoBehaviour
     private Vector2 _movementInput;
     private Animator _animator;
     [SerializeField] private float _speed;
-    [SerializeField] private float _hp;
+    private float _hp;
+    private float _maxHealth = 100;
 
-    // Start is called before the first frame update
+    //Public HP variables with a get for private variables for the Healthbar
+    public float HP {get {return _hp;}}
+    public float MaxHealth {get {return _maxHealth;}}
+
     private void Awake()
     {
         _ridgidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
-        _hp = 30;
+        _hp = _maxHealth;
     }
 
     private void Start()
