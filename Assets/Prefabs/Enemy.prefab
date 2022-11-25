@@ -47,10 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ab9370873a707143aa7ada1f7b1f9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
   health: 0
   maxHealth: 3
-  expYield: 100
+  expYield: 2
   moveSpeed: 0.8
   _expPrefab: {fileID: 9068476433100689533, guid: 9ea8fe9f89e80e941a1fa5fea053251b, type: 3}
 --- !u!50 &7039844575133428782

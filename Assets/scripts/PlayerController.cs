@@ -9,7 +9,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _ridgidbody;
     private Vector2 _movementInput;
     private Animator _animator;
-    [SerializeField] private float _speed;
+    [SerializeField] private float _walkSpeed;
+    [SerializeField] private float _dashSpeed;
+    [SerializeField] private float _dashCooldown;
+    private bool _dashReady;
+    private float _speed;
     private float _hp;
     private float _maxHealth = 100;
 
@@ -22,6 +26,8 @@ public class PlayerController : MonoBehaviour
         _ridgidbody = GetComponent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
         _hp = _maxHealth;
+        _speed = _walkSpeed;
+        _dashReady = true;
     }
 
     private void Start()
@@ -69,10 +75,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnMove(InputValue inputValue)
+    private void Dash()
     {
-        _movementInput = inputValue.Get<Vector2>();
-         Debug.Log(_movementInput);
+        _animator.SetTrigger("dash");
+        _speed = _dashSpeed;
+        _ridgidbody.isKinematic = true;
+        _dashReady = false;
+        StartCoroutine(DashCooldown());
+    }
+
+    IEnumerator DashCooldown()
+    {
+        yield return new WaitForSeconds(.5f);
+        _speed = _walkSpeed;
+        _ridgidbody.isKinematic = false;
+        yield return new WaitForSeconds(_dashCooldown);
+        _dashReady = true;
     }
 
     private void Dead()
@@ -85,5 +103,20 @@ public class PlayerController : MonoBehaviour
     {
         _animator.SetTrigger("takeDamage");
         _hp = _hp - damage;
+    }
+
+    private void OnMove(InputValue inputValue)
+    {
+        _movementInput = inputValue.Get<Vector2>();
+         Debug.Log(_movementInput);
+    }
+
+    private void OnDash(InputValue inputValue)
+    {
+        if(_dashReady)
+        {
+            Debug.Log("dash");
+            Dash();
+        }
     }
 }
