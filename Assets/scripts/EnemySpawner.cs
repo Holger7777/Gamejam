@@ -42,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         StartCoroutine(spawnEnemy(KamiKazeInterval, _kamiKaze));
-
+        StartCoroutine(spawnEnemy(KamiKaze1Interval, _kamiKaze1));
         //StartCoroutine(spawnEnemy(//bigSwarmerInterval, bigSwarmerPrefab));
     }
 

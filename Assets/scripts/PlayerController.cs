@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private float _speed;
     private float _hp;
     private float _maxHealth = 100;
+    [SerializeField] GameObject _wand;
 
     //Public HP variables with a get for private variables for the Healthbar
     public float HP {get {return _hp;}}
@@ -51,6 +52,11 @@ public class PlayerController : MonoBehaviour
         {
             Alive();
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     private void Alive()
@@ -79,7 +85,8 @@ public class PlayerController : MonoBehaviour
     {
         _animator.SetTrigger("dash");
         _speed = _dashSpeed;
-        _ridgidbody.isKinematic = true;
+        //_ridgidbody.isKinematic = true;
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
         _dashReady = false;
         StartCoroutine(DashCooldown());
     }
@@ -88,15 +95,18 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         _speed = _walkSpeed;
-        _ridgidbody.isKinematic = false;
+        //_ridgidbody.isKinematic = false;
+        gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
         yield return new WaitForSeconds(_dashCooldown);
         _dashReady = true;
     }
 
     private void Dead()
     {
+        Destroy(_wand);
         _ridgidbody.velocity = new Vector2(0, 0);
         _animator.SetBool("dead", true);
+        FindObjectOfType<UIManager>().GameOver();
     }
 
     public void TakeDamage(float damage)

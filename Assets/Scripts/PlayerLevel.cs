@@ -21,10 +21,10 @@ public class PlayerLevel : MonoBehaviour
         _level = 1;
     }
 
-    public void GainExperience(float _expGain)
+    public void GainExperience(float expGain)
     {
-        _exp = _exp + _expGain;
-        _totalExpEarned = _totalExpEarned + _expGain;
+        _exp = _exp + expGain;
+        _totalExpEarned = _totalExpEarned + expGain;
         if(_exp >= _expToNextLevel)
         {
             LevelUp();
@@ -34,7 +34,7 @@ public class PlayerLevel : MonoBehaviour
     private void LevelUp()
     {
         _level++;
+        _exp = _exp - _expToNextLevel;
         _expToNextLevel = _expToNextLevel * 2;
-        _exp = 0;
     }
 }

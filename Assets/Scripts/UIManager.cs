@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     private PlayerController _playerHP;
     private PlayerLevel _playerXP;
     [SerializeField] private Image _healthBar, _xpBar;
-    [SerializeField] private TextMeshProUGUI _hpText, _expText, _nextLevelText, _scoreText;
+    [SerializeField] private TextMeshProUGUI _hpText, _expText, _nextLevelText, _scoreText, _finalScoreText;
+    [SerializeField] private GameObject _health, _xp, _score;
+    [SerializeField] private CanvasGroup _blackScreen, _gameOverScreen;
 
     private void Start()
     {
@@ -25,5 +28,35 @@ public class UIManager : MonoBehaviour
         _expText.SetText(_playerXP.EXP.ToString());
         _nextLevelText.SetText(_playerXP.EXPToNextLevel.ToString());
         _scoreText.SetText(_playerXP.Score.ToString());
+    }
+
+    public void GameOver()
+    {
+        _health.SetActive(false);
+        _xp.SetActive(false);
+        _score.SetActive(false);
+        _finalScoreText.SetText(_playerXP.Score.ToString());
+        Debug.Log("woop?");
+        StartCoroutine(BlackScreen());
+        StartCoroutine(GameOverScreen());
+
+    }
+
+    private IEnumerator BlackScreen()
+    {
+        Debug.Log("woop");
+        yield return new WaitForSeconds(2);
+        _blackScreen.alpha = 1;
+    }
+
+    private IEnumerator GameOverScreen()
+    {
+        yield return new WaitForSeconds(2);
+        _gameOverScreen.alpha = 1;
+    }
+
+    public void TryAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
